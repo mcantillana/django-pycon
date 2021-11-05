@@ -4,3 +4,4 @@ gunicorn
 Pillow
 boto3
 django-storages
+django-bootstrap-v5
