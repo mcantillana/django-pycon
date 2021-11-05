@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block main %}
+<main class="mt-4">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <img src="{{product.image.url}}" alt="" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            
+            <!-- BEGIN: titulo, sku y precio -->
+            <div class="row mb-md-4">
+              <h1 class="product-page-title mt-4 mt-md-0">{{product.name}}</h1>
+              <p class="price fs-4 mb-0">{{product.price}}</p>
+              <span><strong>SKU</strong>: {{product.sku}}</span>
+            </div>
+            <!-- END: titulo, sku y precio -->
+            
+            <!-- BEGIN: description -->
+            <div class="row mt-4">
+              <p>{{product.short_description}}</p>  
+            </div>
+            <!-- END: description -->
+            
+            <!-- BEGIN: action -->
+            <div class="row">
+              <div class="col-md-3">
+                <div class="quantity">
+                  <label for="qty" class="form-label">Qty: </label>
+                  <input type="number" class="form-control" id="qty" aria-describedby="Qty" value="1">
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div class="action mt-md-4 mt-2">
+                  <button type="button" class="btn btn-primary btn-lg w-100">Cotizar</button>               
+                </div>
+              </div>
+            </div>  
+            <!-- END: action -->
+
+          </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

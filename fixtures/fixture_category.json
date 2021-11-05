@@ -1,0 +1,1 @@
+[{"model": "catalog.category", "pk": 1, "fields": {"name": "Zapatos", "status": true, "sort_order": 0, "created_at": "2021-11-04T03:06:09.727Z", "updated_at": "2021-11-04T03:06:09.727Z"}}, {"model": "catalog.category", "pk": 2, "fields": {"name": "Poleras", "status": true, "sort_order": 0, "created_at": "2021-11-05T04:51:07.150Z", "updated_at": "2021-11-05T04:51:07.150Z"}}]
