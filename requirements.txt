@@ -2,3 +2,5 @@ django
 mysqlclient
 gunicorn
 Pillow
+boto3
+django-storages

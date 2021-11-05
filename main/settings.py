@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+import os
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-g!-f3)pk_z(%2++$!+tp+gbjb9t)p!h__e)&z=ktghoh!dkp!e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.environ.get("DEBUG") == 'True' else False
 
-ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 
 # Application definition
 
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
     'cms.apps.CmsConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -127,6 +131,24 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import os
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
-MEDIA_URL = '/media/'
+
+if DEBUG:
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+    MEDIA_URL = '/media/'
+
+    # STATIC_ROOT
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+else:
+    AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME=os.environ.get('AWS_STORAGE_BUCKET_NAME')
+    ENDPOINT_URL=os.environ.get('AWS_S3_ENDPOINT_URL')
+    AWS_S3_ENDPOINT_URL=f"https://{ENDPOINT_URL}"
+    AWS_S3_OBJECT_PARAMETERS = {
+        "CacheControl": "max-age=86400",
+    }
+    AWS_LOCATION = f"https://{AWS_STORAGE_BUCKET_NAME}.{ENDPOINT_URL}"
+
+    DEFAULT_FILE_STORAGE = "main.backend_storage.MediaRootS3Boto3Storage"
+    STATICFILES_STORAGE = "main.backend_storage.StaticRootS3Boto3Storage"

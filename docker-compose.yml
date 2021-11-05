@@ -4,29 +4,16 @@ services:
   web:
     build: .
     image: mcantillana/pycon:latest
+    
     command: python manage.py runserver 0:8000
-    # env_file: 
-    #   - .env
+    env_file: 
+      - .env
     ports:
       - "8000:8000"
     volumes:
       - .:/code
     networks:
       - net-pycon
-
-  # db:
-  #   image: percona:5.7
-  #   command: --character-set-server=utf8 --collation-server=utf8_general_ci
-
-  #   ports: 
-  #     - "3306:3306"
-  #   env_file: 
-  #     - .env      
-  #   volumes:
-  #       - db_data:/var/lib/mysql
-  #   networks:
-  #     - net-e2l
-
 
 volumes:
   db_data: 
