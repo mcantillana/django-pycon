@@ -22,13 +22,14 @@
               {% for category in items_categories %}
 
                 {% url 'catalog:category' category.pk as url %}
-                <li><a class="dropdown-item {% if request.path == url %}active{% endif %}" href="{{url}}">{{category.name}}</a></li>
+                <li><a class="dropdown-item {% if request.path == url %}active{% endif %}" href="{{ url }}">{{category.name}}</a></li>
               {% endfor %}
             </ul>
           </li>
           
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="{% url 'cms:home' %}">Contacto</a>
+            {% url 'contacts:add_contact' as url %}
+            <a class="nav-link {% if request.path == url %}active{% endif %}" aria-current="page" href="{{ url }}">Contacto</a>
           </li>
         </ul>
         <form class="d-flex">
